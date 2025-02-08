@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login/Registrieren - CelebHire</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body, html {
+            color: goldenrod;
+            background-color: #212529;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        main {
+            flex: 1;
+        }
+
+        footer {
+            background-color: goldenrod;
+            text-align: center;
+            padding: 1rem 0;
+            color: black;
+        }
+
+        .form-container {
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .form-section {
+            display: none;
+        }
+
+        .form-section.active {
+            display: block;
+        }
+
+        .modal-header, .modal-body {
+            background-color: #212529;
+            color: goldenrod;
+        }
+    </style>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="./index.html">CelebHire</a>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item"><a class="nav-link" href="index.html">Startseite</a></li>
+                <li class="nav-item"><a class="nav-link" href="aboutUs.html">Über uns</a></li>
+                <li class="nav-item"><a class="nav-link" href="kontakt.html">Kontakt</a></li>
+                <li class="nav-item"><a class="nav-link active" href="./login.html">Login</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<main>
+    <div class="container my-5 form-container">
+        <div class="text-center">
+            <button id="toggleLogin" class="btn btn-outline-primary me-2">Login</button>
+            <button id="toggleRegister" class="btn btn-outline-success">Registrieren</button>
+        </div>
+
+        <!-- Login Section -->
+        <section id="loginSection" class="form-section active">
+            <h3 class="text-center mt-4">Login</h3>
+            <form id="loginForm" class="mt-3">
+                <div class="mb-3">
+                    <label for="loginUsername" class="form-label">Benutzername</label>
+                    <input type="text" class="form-control" id="loginUsername" required>
+                </div>
+                <div class="mb-3">
+                    <label for="loginPassword" class="form-label">Passwort</label>
+                    <input type="password" class="form-control" id="loginPassword" required>
+                </div>
+                <button type="submit" class="btn btn-primary w-100">Einloggen</button>
+            </form>
+            <p id="loginMessage" class="text-center mt-3"></p>
+        </section>
+
+        <!-- Registration Section -->
+        <section id="registerSection" class="form-section">
+            <h3 class="text-center mt-4">Registrieren</h3>
+            <form id="registerForm" class="mt-3">
+                <div class="mb-3">
+                    <label for="registerUsername" class="form-label">Benutzername</label>
+                    <input type="text" class="form-control" id="registerUsername" required>
+                </div>
+                <div class="mb-3">
+                    <label for="registerEmail" class="form-label">E-Mail</label>
+                    <input type="email" class="form-control" id="registerEmail" required>
+                </div>
+                <div class="mb-3">
+                    <label for="registerPassword" class="form-label">Passwort</label>
+                    <input type="password" class="form-control" id="registerPassword" required>
+                </div>
+                <button type="submit" class="btn btn-success w-100">Registrieren</button>
+            </form>
+            <p id="registerMessage" class="text-center mt-3"></p>
+        </section>
+    </div>
+</main>
+
+<script>
+    // Toggle between Login and Register forms
+    const loginSection = document.getElementById("loginSection");
+    const registerSection = document.getElementById("registerSection");
+    document.getElementById("toggleLogin").addEventListener("click", () => {
+        loginSection.classList.add("active");
+        registerSection.classList.remove("active");
+    });
+    document.getElementById("toggleRegister").addEventListener("click", () => {
+        registerSection.classList.add("active");
+        loginSection.classList.remove("active");
+    });
+
+    // Login logic
+    document.getElementById("loginForm").addEventListener("submit", function (event) {
+        event.preventDefault();
+        const username = document.getElementById("loginUsername").value;
+        const password = document.getElementById("loginPassword").value;
+
+        if (username === "123" && password === "123") {
+            window.location.href = "index.html";
+        } else {
+            document.getElementById("loginMessage").textContent = "Benutzername oder Passwort ist falsch!";
+            document.getElementById("loginMessage").className = "text-danger";
+        }
+    });
+
+    // Registration logic
+    document.getElementById("registerForm").addEventListener("submit", function (event) {
+        event.preventDefault();
+        const username = document.getElementById("registerUsername").value;
+        const email = document.getElementById("registerEmail").value;
+        const password = document.getElementById("registerPassword").value;
+
+        if (username && email && password) {
+            document.getElementById("registerMessage").textContent = "Registrierung erfolgreich!";
+            document.getElementById("registerMessage").className = "text-success";
+        } else {
+            document.getElementById("registerMessage").textContent = "Bitte alle Felder ausfüllen!";
+            document.getElementById("registerMessage").className = "text-danger";
+        }
+    });
+</script>
+
+<footer>
+    <p>&copy; 2024 CelebHire. Alle Rechte vorbehalten.</p>
+    <p>
+        <a href="#" data-bs-toggle="modal" data-bs-target="#datenschutzModal">Datenschutzerklärung</a> |
+        <a href="#" data-bs-toggle="modal" data-bs-target="#agbModal">AGBs</a> |
+        <a href="#" data-bs-toggle="modal" data-bs-target="#impressumModal">Impressum</a>
+    </p>
+</footer>
+
+<!-- Modal: Datenschutzerklärung -->
+<div class="modal fade" id="datenschutzModal" tabindex="-1" aria-labelledby="datenschutzLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="datenschutzLabel">Datenschutzerklärung</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>
+                <p>H
+                <h1>Datenschutzerklärung</h1>
+
+                <p><strong>Gültig für die Nutzung der Demo-Webseite <a href="https://celebhire.netlify.app/">https://celebhire.netlify.app/</a></strong>
+                </p>
+
+                <h2>1. Allgemeines</h2>
+                <p>Diese Webseite dient ausschließlich als Demo-Projekt und nicht für den öffentlichen Gebrauch. Der
+                    Schutz der Privatsphäre unserer Nutzer ist uns wichtig, auch wenn auf dieser Seite keine echten
+                    personenbezogenen Daten verarbeitet werden.</p>
+
+                <h2>2. Erhebung und Speicherung von Daten</h2>
+                <p>- Auf dieser Webseite werden keine echten personenbezogenen Daten gespeichert oder verarbeitet.</p>
+                <p>- Alle Eingaben, wie z.B. die "Registrierung", sind rein simulativ und dienen nur zur Demonstration
+                    der Webseite.</p>
+
+                <h2>3. Cookies</h2>
+                <p>Diese Demo-Webseite verwendet keine Cookies zur Verfolgung oder Speicherung von Daten.</p>
+
+                <h2>4. Weitergabe von Daten</h2>
+                <p>- Da keine Daten gespeichert werden, erfolgt keine Weitergabe an Dritte.</p>
+                <p>- Falls du trotzdem persönliche Daten übermittelst (z.B. über E-Mail), werden diese nicht auf dieser
+                    Seite gespeichert und nur zur Bearbeitung deiner Anfrage verwendet.</p>
+
+                <h2>5. Sicherheit</h2>
+                <p>- Da es sich um eine Demo-Webseite handelt, ist keine umfassende Sicherheitsinfrastruktur
+                    implementiert. Bitte gib keine sensiblen oder echten persönlichen Daten ein.</p>
+
+                <h2>6. Links zu externen Seiten</h2>
+                <p>Die Webseite kann Links zu externen Webseiten enthalten. Wir übernehmen keine Verantwortung für deren
+                    Inhalte oder Datenschutzpraktiken.</p>
+
+                <h2>7. Änderungen der Datenschutzerklärung</h2>
+                <p>Wir behalten uns das Recht vor, diese Datenschutzerklärung jederzeit zu ändern. Die aktuelle Version
+                    wird immer auf dieser Seite verfügbar sein.</p>
+
+                <h2>8. Kontakt</h2>
+                <p>Bei Fragen zur Datenschutzerklärung oder zur Nutzung der Webseite kannst du uns über die folgende
+                    E-Mail-Adresse kontaktieren:</p>
+                <p><strong>E-Mail:</strong> Temsamani1989@gmail.com</p>
+
+                <p><strong>Letzte Aktualisierung:</strong> 07.02.2025</p></p></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal: AGBs -->
+<div class="modal fade" id="agbModal" tabindex="-1" aria-labelledby="agbLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="agbLabel">Allgemeine Geschäftsbedingungen (AGBs)</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>
+                <h1>Allgemeine Geschäftsbedingungen (AGB)</h1>
+
+                <p><strong>Gültig für die Nutzung der Demo-Webseite <a href="https://celebhire.netlify.app/">https://celebhire.netlify.app/</a></strong>
+                </p>
+
+                <h2>1. Zweck der Webseite</h2>
+                <p>Diese Webseite dient ausschließlich als Demo-Projekt für das Portfolio des Entwicklers. Alle Inhalte,
+                    einschließlich der "Registrierung" und anderer Funktionen, sind rein simuliert und haben keinen
+                    praktischen oder rechtlichen Zweck.</p>
+
+                <h2>2. Haftungsausschluss</h2>
+                <p>- Diese Webseite ist nicht für den öffentlichen oder kommerziellen Gebrauch bestimmt.</p>
+                <p>- Alle Daten, die auf der Seite eingegeben werden, sind nicht geschützt und dienen nur zu
+                    Demonstrationszwecken.</p>
+                <p>- Wir übernehmen keine Haftung für Schäden oder Verluste, die durch die Nutzung dieser Demo-Seite
+                    entstehen.</p>
+
+                <h2>3. Eingabe von Daten</h2>
+                <p>- Bitte gib keine echten persönlichen oder vertraulichen Daten ein. Alle eingegebenen Informationen
+                    werden nicht gespeichert oder verarbeitet und sind rein simulativ.</p>
+
+                <h2>4. Geistiges Eigentum</h2>
+                <p>Alle Inhalte der Webseite, einschließlich des Designs und der Funktionen, gehören dem Entwickler und
+                    dürfen ohne Erlaubnis nicht kopiert oder weiterverwendet werden.</p>
+
+                <h2>5. Änderungen und Entfernung der Webseite</h2>
+                <p>Der Betreiber behält sich das Recht vor, die Webseite jederzeit ohne Ankündigung zu ändern oder zu
+                    entfernen.</p>
+
+                <h2>6. Kontakt</h2>
+                <p>Für Fragen zur Webseite kannst du den Entwickler über folgende E-Mail kontaktieren:</p>
+                <p><strong>E-Mail:</strong> Temsamani1989@gmail.com</p>
+
+                <p><strong>Letzte Aktualisierung:</strong> 07.02.2025</p></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal: Impressum -->
+<div class="modal fade" id="impressumModal" tabindex="-1" aria-labelledby="impressumLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="impressumLabel">Impressum</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <h1>Allgemeine Geschäftsbedingungen (AGB)</h1>
+
+                <p><strong>Gültig für die Nutzung der Demo-Webseite <a href="https://celebhire.netlify.app/">https://celebhire.netlify.app/</a></strong>
+                </p>
+
+                <h2>1. Zweck der Webseite</h2>
+                <p>Diese Webseite dient ausschließlich als Demo-Projekt für das Portfolio des Entwicklers. Alle Inhalte,
+                    einschließlich der "Registrierung" und anderer Funktionen, sind rein simuliert und haben keinen
+                    praktischen oder rechtlichen Zweck.</p>
+
+                <h2>2. Haftungsausschluss</h2>
+                <p>- Diese Webseite ist nicht für den öffentlichen oder kommerziellen Gebrauch bestimmt.</p>
+                <p>- Alle Daten, die auf der Seite eingegeben werden, sind nicht geschützt und dienen nur zu
+                    Demonstrationszwecken.</p>
+                <p>- Wir übernehmen keine Haftung für Schäden oder Verluste, die durch die Nutzung dieser Demo-Seite
+                    entstehen.</p>
+
+                <h2>3. Eingabe von Daten</h2>
+                <p>- Bitte gib keine echten persönlichen oder vertraulichen Daten ein. Alle eingegebenen Informationen
+                    werden nicht gespeichert oder verarbeitet und sind rein simulativ.</p>
+
+                <h2>4. Geistiges Eigentum</h2>
+                <p>Alle Inhalte der Webseite, einschließlich des Designs und der Funktionen, gehören dem Entwickler und
+                    dürfen ohne Erlaubnis nicht kopiert oder weiterverwendet werden.</p>
+
+                <h2>5. Änderungen und Entfernung der Webseite</h2>
+                <p>Der Betreiber behält sich das Recht vor, die Webseite jederzeit ohne Ankündigung zu ändern oder zu
+                    entfernen.</p>
+
+                <h2>6. Kontakt</h2>
+                <p>Für Fragen zur Webseite kannst du den Entwickler über folgende E-Mail kontaktieren:</p>
+                <p><strong>E-Mail:</strong> Temsamani1989@gmail.com</p>
+
+                <p><strong>Letzte Aktualisierung:</strong> 07.02.2025</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
